@@ -40,6 +40,47 @@ class _TelaLoginState extends State<TelaLogin> {
     super.dispose();
   }
 
+  void _handleVoltar() {
+    debugPrint('[TelaLogin] Clique em "Voltar" para a tela inicial');
+    final navigator = Navigator.of(context);
+    if (navigator.canPop()) {
+      navigator.pop();
+    } else {
+      navigator.pushReplacementNamed('/');
+    }
+  }
+
+  Widget _buildBotaoVoltar() {
+    return Tooltip(
+      message: 'Voltar para o início',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: _handleVoltar,
+          borderRadius: BorderRadius.circular(999),
+          hoverColor: const Color(0xFF004CA3).withValues(alpha: 0.08),
+          splashColor: const Color(0xFF004CA3).withValues(alpha: 0.14),
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFF004CA3).withValues(alpha: 0.22),
+                width: 1,
+              ),
+            ),
+            child: const Icon(
+              Icons.arrow_back_rounded,
+              size: 20,
+              color: Color(0xFF004CA3),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   void _handleContinuarComGoogle() {
     debugPrint('[TelaLogin] Clique em "Continuar com Google"');
     setState(() {
@@ -112,14 +153,23 @@ class _TelaLoginState extends State<TelaLogin> {
                   flex: 1,
                   child: Container(
                     color: const Color(0xFFF5F8FD),
-                    child: Center(
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 48.0,
-                          vertical: 40.0,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 48.0,
+                              vertical: 40.0,
+                            ),
+                            child: _buildAreaFormulario(),
+                          ),
                         ),
-                        child: _buildAreaFormulario(),
-                      ),
+                        Positioned(
+                          top: 24,
+                          right: 28,
+                          child: _buildBotaoVoltar(),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -135,12 +185,23 @@ class _TelaLoginState extends State<TelaLogin> {
                 _buildPainelDestaque(isDesktop: false),
                 Container(
                   color: const Color(0xFFF5F8FD),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: constraints.maxWidth < 480 ? 24.0 : 40.0,
-                    vertical: 40.0,
-                  ),
-                  child: Center(
-                    child: _buildAreaFormulario(),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: constraints.maxWidth < 480 ? 24.0 : 40.0,
+                          vertical: 40.0,
+                        ),
+                        child: Center(
+                          child: _buildAreaFormulario(),
+                        ),
+                      ),
+                      Positioned(
+                        top: 16,
+                        right: 20,
+                        child: _buildBotaoVoltar(),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -253,15 +314,6 @@ class _TelaLoginState extends State<TelaLogin> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Marca e Subtítulo no topo da área do formulário
-            const LogoLicitHub(
-              primaryColor: Color(0xFF0A2547),
-              subtitleColor: Color(0xFF0A2547),
-              titleFontSize: 28,
-              subtitleFontSize: 10.0,
-            ),
-            const SizedBox(height: 28),
-
             // Cabeçalho: Título e subtítulo
             const Text(
               'Bem-vindo de volta',

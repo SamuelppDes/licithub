@@ -12,6 +12,7 @@ export 'servicos/api_servico.dart';
 export 'servicos/formatadores.dart';
 export 'telas/painel/layout_principal.dart';
 export 'telas/painel/tela_buscar_editais.dart';
+export 'telas/painel/tela_configuracoes.dart';
 export 'telas/painel/tela_dashboard.dart';
 export 'telas/painel/tela_detalhes_edital.dart';
 export 'telas/painel/tela_documentos.dart';
@@ -63,26 +64,46 @@ class _LicitHubAppState extends State<LicitHubApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'LicitHub MVP',
-      debugShowCheckedModeBanner: false,
-      theme: TemaApp.obterTemaClaro(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const TelaInicial(),
-        '/login': (routeContext) => TelaLogin(
-              onLoginSuccess: (email) => _concluirLogin(
-                routeContext,
-                'formulário de e-mail/senha',
-                email: email,
+    return ListenableBuilder(
+      listenable: Listenable.merge([
+        TemaApp.modoTema,
+        TemaApp.escalaFonte,
+        TemaApp.altoContraste,
+      ]),
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'LicitHub MVP',
+          debugShowCheckedModeBanner: false,
+          theme: TemaApp.obterTemaClaro(),
+          darkTheme: TemaApp.obterTemaEscuro(),
+          themeMode: TemaApp.modoTema.value,
+          builder: (context, child) {
+            final mediaQuery = MediaQuery.of(context);
+            return MediaQuery(
+              data: mediaQuery.copyWith(
+                textScaler: TextScaler.linear(TemaApp.escalaFonte.value),
               ),
-              onGoogleLogin: () => _concluirLogin(
-                routeContext,
-                'Google OAuth (mock)',
-              ),
-            ),
-        '/painel': (context) => const LayoutPrincipal(),
-        '/dashboard': (context) => const LayoutPrincipal(),
+              child: child ?? const SizedBox.shrink(),
+            );
+          },
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const TelaInicial(),
+            '/login': (routeContext) => TelaLogin(
+                  onLoginSuccess: (email) => _concluirLogin(
+                    routeContext,
+                    'formulário de e-mail/senha',
+                    email: email,
+                  ),
+                  onGoogleLogin: () => _concluirLogin(
+                    routeContext,
+                    'Google OAuth (mock)',
+                  ),
+                ),
+            '/painel': (context) => const LayoutPrincipal(),
+            '/dashboard': (context) => const LayoutPrincipal(),
+          },
+        );
       },
     );
   }

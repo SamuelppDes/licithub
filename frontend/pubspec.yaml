@@ -58,6 +58,31 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/imagens/hero_banner.jpg
+    - assets/fonts/
+
+  fonts:
+    - family: Libre Baskerville
+      fonts:
+        - asset: assets/fonts/LibreBaskerville-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/LibreBaskerville-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/LibreBaskerville-Bold.ttf
+          weight: 700
+    - family: IBM Plex Sans
+      fonts:
+        - asset: assets/fonts/IBMPlexSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/IBMPlexSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/IBMPlexSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/IBMPlexSans-Bold.ttf
+          weight: 700
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

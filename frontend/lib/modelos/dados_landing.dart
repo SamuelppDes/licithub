@@ -6,7 +6,7 @@ const String dadosLandingJson = '''
   "sobreNos": [
     "A LicitHub é uma empresa de tecnologia especializada em gestão de licitações. Unimos empresas e órgãos públicos, tornando o processo de participar de compras governamentais simples e acessível.",
     "Nossa plataforma monitora editais em todo o Brasil e transforma documentos longos e técnicos em informações claras, para que você decida rápido onde vale a pena concorrer.",
-    "Cada licitação é uma nova chance de crescer — e nós ajudamos você a não perder nenhuma."
+    "Aqui, na Licithub, cada licitação é uma nova chance de crescer."
   ],
   "visaoValores": [
     {

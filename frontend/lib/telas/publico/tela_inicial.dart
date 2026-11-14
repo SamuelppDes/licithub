@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../componentes/ilustracoes/equipe_negocios_painter.dart';
 import '../../componentes/ilustracoes/predio_governo_painter.dart';
+import '../../componentes/logo_licithub.dart';
 import '../../configuracoes/tema_app.dart';
 import '../../modelos/dados_landing.dart';
 
@@ -191,22 +192,17 @@ class _TelaInicialState extends State<TelaInicial> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Esquerda: Logo "LicitHub" (fonte com serifa, em azul escuro)
+                    // Esquerda: Logo "LicitHub" + subtítulo "LICITAÇÕES"
                     InkWell(
                       onTap: () => _rolarParaSecao(_inicioKey),
                       borderRadius: BorderRadius.circular(6),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 4.0),
-                        child: Text(
-                          'LicitHub',
-                          style: TextStyle(
-                            fontFamily: TemaApp.fonteSerifada,
-                            fontFamilyFallback: TemaApp.fallbackSerifada,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF154586),
-                            letterSpacing: -0.3,
-                          ),
+                        child: LogoLicitHub(
+                          primaryColor: Color(0xFF154586),
+                          subtitleColor: Color(0xFF154586),
+                          titleFontSize: 25,
+                          subtitleFontSize: 9.0,
                         ),
                       ),
                     ),
@@ -373,9 +369,9 @@ class _TelaInicialState extends State<TelaInicial> {
                 painter: PredioGovernoPainter(),
               ),
 
-              // Imagem fotográfica do prédio governamental (com fallback transparente para a pintura abaixo)
-              Image.network(
-                'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1800&q=80',
+              // Imagem de fundo do banner principal (com fallback transparente para a pintura abaixo)
+              Image.asset(
+                'assets/imagens/hero_banner.jpg',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
                     const SizedBox.expand(),
